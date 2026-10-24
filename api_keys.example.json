@@ -1,0 +1,5 @@
+{
+  "main": "YOUR_API_KEY",
+  "gemini": "YOUR_GEMINI_KEY",
+  "relay": "YOUR_RELAY_KEY"
+}

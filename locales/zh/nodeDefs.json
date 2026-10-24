@@ -1,0 +1,388 @@
+{
+  "SAConnection": {
+    "display_name": "API 连接",
+    "description": "一次配置，多节点共用。中转站填写其地址并选择接口格式。",
+    "inputs": {
+      "provider": {
+        "name": "平台",
+        "tooltip": ""
+      },
+      "base_url": {
+        "name": "API 地址",
+        "tooltip": "填含版本号的基础地址；预设平台可留空。"
+      },
+      "api_key": {
+        "name": "API 密钥",
+        "tooltip": "可填密钥、env:变量名、key:本地名称。直接填写会保存在工作流中。"
+      },
+      "protocol": {
+        "name": "接口格式",
+        "tooltip": "auto 跟随平台；中转站按其文档选择。"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "连接"
+      }
+    }
+  },
+  "SAText": {
+    "display_name": "API 文本",
+    "description": "输入文本，输出文本。支持四种接口格式。",
+    "inputs": {
+      "connection": {
+        "name": "连接",
+        "tooltip": ""
+      },
+      "model": {
+        "name": "模型",
+        "tooltip": "填写平台提供的模型名。"
+      },
+      "prompt": {
+        "name": "提示词",
+        "tooltip": "输入要求，也可连接文本输出。"
+      },
+      "run_id": {
+        "name": "重新请求编号",
+        "tooltip": "相同输入再次请求时，更改此数值。"
+      },
+      "options": {
+        "name": "高级选项",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "文本"
+      },
+      "1": {
+        "name": "响应 JSON"
+      }
+    }
+  },
+  "SAVision": {
+    "display_name": "API 看图问答",
+    "description": "输入一张或多张图进行识别、描述、比较。顺序为 1–4，再加图像集合。",
+    "inputs": {
+      "connection": {
+        "name": "连接",
+        "tooltip": ""
+      },
+      "model": {
+        "name": "模型",
+        "tooltip": "填写平台提供的模型名。"
+      },
+      "prompt": {
+        "name": "提示词",
+        "tooltip": "输入要求，也可连接文本输出。"
+      },
+      "run_id": {
+        "name": "重新请求编号",
+        "tooltip": "相同输入再次请求时，更改此数值。"
+      },
+      "image_1": {
+        "name": "图像 1",
+        "tooltip": ""
+      },
+      "options": {
+        "name": "高级选项",
+        "tooltip": ""
+      },
+      "image_2": {
+        "name": "图像 2",
+        "tooltip": ""
+      },
+      "image_3": {
+        "name": "图像 3",
+        "tooltip": ""
+      },
+      "image_4": {
+        "name": "图像 4",
+        "tooltip": ""
+      },
+      "image_set": {
+        "name": "图像集合",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "文本"
+      },
+      "1": {
+        "name": "响应 JSON"
+      }
+    }
+  },
+  "SAImage": {
+    "display_name": "API 生成图像",
+    "description": "生成图像，输出连接预览或保存图像。",
+    "inputs": {
+      "connection": {
+        "name": "连接",
+        "tooltip": ""
+      },
+      "model": {
+        "name": "模型",
+        "tooltip": "填写平台提供的模型名。"
+      },
+      "prompt": {
+        "name": "提示词",
+        "tooltip": "输入要求，也可连接文本输出。"
+      },
+      "size": {
+        "name": "图像尺寸",
+        "tooltip": "Images 接口填像素尺寸；Gemini/chat 可填比例。"
+      },
+      "count": {
+        "name": "数量",
+        "tooltip": ""
+      },
+      "run_id": {
+        "name": "重新请求编号",
+        "tooltip": "相同输入再次请求时，更改此数值。"
+      },
+      "options": {
+        "name": "高级选项",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "图像"
+      },
+      "1": {
+        "name": "文本"
+      },
+      "2": {
+        "name": "响应 JSON"
+      }
+    }
+  },
+  "SAImageEdit": {
+    "display_name": "API 多图编辑",
+    "description": "支持单图、多图编辑。可直接接四张或用图像集合扩展。遮罩白色区域为编辑区。",
+    "inputs": {
+      "connection": {
+        "name": "连接",
+        "tooltip": ""
+      },
+      "model": {
+        "name": "模型",
+        "tooltip": "填写平台提供的模型名。"
+      },
+      "prompt": {
+        "name": "提示词",
+        "tooltip": "输入要求，也可连接文本输出。"
+      },
+      "size": {
+        "name": "图像尺寸",
+        "tooltip": "Images 接口填像素尺寸；Gemini/chat 可填比例。"
+      },
+      "count": {
+        "name": "数量",
+        "tooltip": ""
+      },
+      "run_id": {
+        "name": "重新请求编号",
+        "tooltip": "相同输入再次请求时，更改此数值。"
+      },
+      "image_1": {
+        "name": "图像 1",
+        "tooltip": ""
+      },
+      "options": {
+        "name": "高级选项",
+        "tooltip": ""
+      },
+      "image_2": {
+        "name": "图像 2",
+        "tooltip": ""
+      },
+      "image_3": {
+        "name": "图像 3",
+        "tooltip": ""
+      },
+      "image_4": {
+        "name": "图像 4",
+        "tooltip": ""
+      },
+      "image_set": {
+        "name": "图像集合",
+        "tooltip": ""
+      },
+      "mask": {
+        "name": "遮罩",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "图像"
+      },
+      "1": {
+        "name": "文本"
+      },
+      "2": {
+        "name": "响应 JSON"
+      }
+    }
+  },
+  "SAImages": {
+    "display_name": "API 图像集合",
+    "description": "原尺寸收集多张图；串接图像集合可继续添加。",
+    "inputs": {
+      "image_1": {
+        "name": "图像 1",
+        "tooltip": ""
+      },
+      "image_2": {
+        "name": "图像 2",
+        "tooltip": ""
+      },
+      "image_3": {
+        "name": "图像 3",
+        "tooltip": ""
+      },
+      "image_4": {
+        "name": "图像 4",
+        "tooltip": ""
+      },
+      "image_set": {
+        "name": "图像集合",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "图像集合"
+      },
+      "1": {
+        "name": "数量"
+      }
+    }
+  },
+  "SAOptions": {
+    "display_name": "API 高级选项",
+    "description": "按需连接。额外 JSON 可覆盖默认参数，嵌套对象会合并。",
+    "inputs": {
+      "system_prompt": {
+        "name": "系统提示词",
+        "tooltip": ""
+      },
+      "timeout": {
+        "name": "超时秒数",
+        "tooltip": ""
+      },
+      "endpoint": {
+        "name": "接口路径",
+        "tooltip": "可选，覆盖接口路径。"
+      },
+      "extra_body": {
+        "name": "额外参数 JSON",
+        "tooltip": "平台额外参数。"
+      },
+      "headers": {
+        "name": "请求头 JSON",
+        "tooltip": "可选请求头，支持密钥引用。"
+      },
+      "image_api": {
+        "name": "图像接口",
+        "tooltip": "仅图像节点；Gemini 使用原生接口。"
+      },
+      "image_field": {
+        "name": "上传图片字段",
+        "tooltip": "中转站要求的图片表单字段。"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "高级选项"
+      }
+    }
+  },
+  "SARequest": {
+    "display_name": "API 通用请求",
+    "description": "自定义同步 JSON 接口。支持提示词、模型、多图模板及结果路径。异步任务请按平台文档另行查询。",
+    "inputs": {
+      "connection": {
+        "name": "连接",
+        "tooltip": ""
+      },
+      "method": {
+        "name": "请求方式",
+        "tooltip": ""
+      },
+      "endpoint": {
+        "name": "接口路径",
+        "tooltip": ""
+      },
+      "model": {
+        "name": "模型",
+        "tooltip": "填写平台提供的模型名。"
+      },
+      "prompt": {
+        "name": "提示词",
+        "tooltip": "输入要求，也可连接文本输出。"
+      },
+      "body_json": {
+        "name": "请求体 JSON",
+        "tooltip": ""
+      },
+      "result_path": {
+        "name": "结果路径",
+        "tooltip": "留空输出全部 JSON。"
+      },
+      "run_id": {
+        "name": "重新请求编号",
+        "tooltip": "相同输入再次请求时，更改此数值。"
+      },
+      "image_set": {
+        "name": "图像集合",
+        "tooltip": ""
+      },
+      "options": {
+        "name": "高级选项",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "结果"
+      },
+      "1": {
+        "name": "响应 JSON"
+      }
+    }
+  },
+  "SAImageDecode": {
+    "display_name": "API 解码图像",
+    "description": "把通用请求得到的图片地址或 base64 转为图像。",
+    "inputs": {
+      "image_data": {
+        "name": "图像地址或 base64",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "图像"
+      }
+    }
+  },
+  "SAShowText": {
+    "display_name": "API 显示文本",
+    "description": "直接在节点上显示文本结果。",
+    "inputs": {
+      "text": {
+        "name": "文本",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "文本"
+      }
+    }
+  }
+}

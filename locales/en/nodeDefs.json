@@ -1,0 +1,388 @@
+{
+  "SAConnection": {
+    "display_name": "API Connection",
+    "description": "Configure once, reuse across nodes. For any relay, override the base URL and choose its API protocol.",
+    "inputs": {
+      "provider": {
+        "name": "Provider",
+        "tooltip": ""
+      },
+      "base_url": {
+        "name": "Base Url",
+        "tooltip": "Include the API version, e.g. https://host/v1. Leave blank for official presets."
+      },
+      "api_key": {
+        "name": "Api Key",
+        "tooltip": "Paste a key, env:VARIABLE or key:local_name. Raw pasted keys are saved in workflows."
+      },
+      "protocol": {
+        "name": "Protocol",
+        "tooltip": "auto follows the provider; relays can use any of these protocols."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Connection"
+      }
+    }
+  },
+  "SAText": {
+    "display_name": "API Text",
+    "description": "Text in, text out. Supports OpenAI-compatible, Responses, Gemini and Claude APIs.",
+    "inputs": {
+      "connection": {
+        "name": "Connection",
+        "tooltip": ""
+      },
+      "model": {
+        "name": "Model",
+        "tooltip": "Model ID from your provider; any supported ID is allowed."
+      },
+      "prompt": {
+        "name": "Prompt",
+        "tooltip": "Write your request or connect a text output."
+      },
+      "run_id": {
+        "name": "Run Id",
+        "tooltip": "Change this value to request again with identical inputs."
+      },
+      "options": {
+        "name": "Options",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Text"
+      },
+      "1": {
+        "name": "Response Json"
+      }
+    }
+  },
+  "SAVision": {
+    "display_name": "API Vision",
+    "description": "Ask about one or more images. Image order follows inputs 1–4, then the image set.",
+    "inputs": {
+      "connection": {
+        "name": "Connection",
+        "tooltip": ""
+      },
+      "model": {
+        "name": "Model",
+        "tooltip": "Model ID from your provider; any supported ID is allowed."
+      },
+      "prompt": {
+        "name": "Prompt",
+        "tooltip": "Write your request or connect a text output."
+      },
+      "run_id": {
+        "name": "Run Id",
+        "tooltip": "Change this value to request again with identical inputs."
+      },
+      "image_1": {
+        "name": "Image 1",
+        "tooltip": ""
+      },
+      "options": {
+        "name": "Options",
+        "tooltip": ""
+      },
+      "image_2": {
+        "name": "Image 2",
+        "tooltip": ""
+      },
+      "image_3": {
+        "name": "Image 3",
+        "tooltip": ""
+      },
+      "image_4": {
+        "name": "Image 4",
+        "tooltip": ""
+      },
+      "image_set": {
+        "name": "Image Set",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Text"
+      },
+      "1": {
+        "name": "Response Json"
+      }
+    }
+  },
+  "SAImage": {
+    "display_name": "API Generate Image",
+    "description": "Generate images. Connect images to Preview Image or Save Image. Supports Images, Gemini, chat and Responses image APIs.",
+    "inputs": {
+      "connection": {
+        "name": "Connection",
+        "tooltip": ""
+      },
+      "model": {
+        "name": "Model",
+        "tooltip": "Model ID from your provider; any supported ID is allowed."
+      },
+      "prompt": {
+        "name": "Prompt",
+        "tooltip": "Write your request or connect a text output."
+      },
+      "size": {
+        "name": "Size",
+        "tooltip": "Images API: 1024x1024 etc. Gemini/chat: auto or aspect ratio, e.g. 16:9."
+      },
+      "count": {
+        "name": "Count",
+        "tooltip": ""
+      },
+      "run_id": {
+        "name": "Run Id",
+        "tooltip": "Change this value to request again with identical inputs."
+      },
+      "options": {
+        "name": "Options",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Images"
+      },
+      "1": {
+        "name": "Text"
+      },
+      "2": {
+        "name": "Response Json"
+      }
+    }
+  },
+  "SAImageEdit": {
+    "display_name": "API Edit Images",
+    "description": "Edit with one or many reference images. Connect up to four inputs or chain Image Set nodes for more. White mask areas are edited.",
+    "inputs": {
+      "connection": {
+        "name": "Connection",
+        "tooltip": ""
+      },
+      "model": {
+        "name": "Model",
+        "tooltip": "Model ID from your provider; any supported ID is allowed."
+      },
+      "prompt": {
+        "name": "Prompt",
+        "tooltip": "Write your request or connect a text output."
+      },
+      "size": {
+        "name": "Size",
+        "tooltip": "Images API: 1024x1024 etc. Gemini/chat: auto or aspect ratio, e.g. 16:9."
+      },
+      "count": {
+        "name": "Count",
+        "tooltip": ""
+      },
+      "run_id": {
+        "name": "Run Id",
+        "tooltip": "Change this value to request again with identical inputs."
+      },
+      "image_1": {
+        "name": "Image 1",
+        "tooltip": ""
+      },
+      "options": {
+        "name": "Options",
+        "tooltip": ""
+      },
+      "image_2": {
+        "name": "Image 2",
+        "tooltip": ""
+      },
+      "image_3": {
+        "name": "Image 3",
+        "tooltip": ""
+      },
+      "image_4": {
+        "name": "Image 4",
+        "tooltip": ""
+      },
+      "image_set": {
+        "name": "Image Set",
+        "tooltip": ""
+      },
+      "mask": {
+        "name": "Mask",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Images"
+      },
+      "1": {
+        "name": "Text"
+      },
+      "2": {
+        "name": "Response Json"
+      }
+    }
+  },
+  "SAImages": {
+    "display_name": "API Image Set",
+    "description": "Combine references without resizing. Chain image_set to collect more.",
+    "inputs": {
+      "image_1": {
+        "name": "Image 1",
+        "tooltip": ""
+      },
+      "image_2": {
+        "name": "Image 2",
+        "tooltip": ""
+      },
+      "image_3": {
+        "name": "Image 3",
+        "tooltip": ""
+      },
+      "image_4": {
+        "name": "Image 4",
+        "tooltip": ""
+      },
+      "image_set": {
+        "name": "Image Set",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Image Set"
+      },
+      "1": {
+        "name": "Count"
+      }
+    }
+  },
+  "SAOptions": {
+    "display_name": "API Options",
+    "description": "Optional settings. Connect only when needed. Extra JSON overrides defaults and merges nested objects.",
+    "inputs": {
+      "system_prompt": {
+        "name": "System Prompt",
+        "tooltip": ""
+      },
+      "timeout": {
+        "name": "Timeout",
+        "tooltip": ""
+      },
+      "endpoint": {
+        "name": "Endpoint",
+        "tooltip": "Optional endpoint override, relative to base URL."
+      },
+      "extra_body": {
+        "name": "Extra Body",
+        "tooltip": "Provider-specific parameters, e.g. temperature, max_tokens, quality."
+      },
+      "headers": {
+        "name": "Headers",
+        "tooltip": "Optional custom headers; env: and key: references supported."
+      },
+      "image_api": {
+        "name": "Image Api",
+        "tooltip": "Image nodes only. Gemini always uses its native API."
+      },
+      "image_field": {
+        "name": "Image Field",
+        "tooltip": "Multipart field expected by your relay."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Options"
+      }
+    }
+  },
+  "SARequest": {
+    "display_name": "API Custom Request",
+    "description": "Custom synchronous JSON APIs. Templates: {{prompt}}, {{model}}, {{images}}, {{images_base64}}. Result path uses JSON Pointer.",
+    "inputs": {
+      "connection": {
+        "name": "Connection",
+        "tooltip": ""
+      },
+      "method": {
+        "name": "Method",
+        "tooltip": ""
+      },
+      "endpoint": {
+        "name": "Endpoint",
+        "tooltip": ""
+      },
+      "model": {
+        "name": "Model",
+        "tooltip": "Model ID from your provider; any supported ID is allowed."
+      },
+      "prompt": {
+        "name": "Prompt",
+        "tooltip": "Write your request or connect a text output."
+      },
+      "body_json": {
+        "name": "Body Json",
+        "tooltip": ""
+      },
+      "result_path": {
+        "name": "Result Path",
+        "tooltip": "Empty = entire JSON; e.g. /data/0/url."
+      },
+      "run_id": {
+        "name": "Run Id",
+        "tooltip": "Change this value to request again with identical inputs."
+      },
+      "image_set": {
+        "name": "Image Set",
+        "tooltip": ""
+      },
+      "options": {
+        "name": "Options",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Result"
+      },
+      "1": {
+        "name": "Response Json"
+      }
+    }
+  },
+  "SAImageDecode": {
+    "display_name": "API Decode Image",
+    "description": "Decode an image URL, data URL or base64 returned by a custom API.",
+    "inputs": {
+      "image_data": {
+        "name": "Image Data",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Image"
+      }
+    }
+  },
+  "SAShowText": {
+    "display_name": "API Show Text",
+    "description": "Display text directly on this node.",
+    "inputs": {
+      "text": {
+        "name": "Text",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Text"
+      }
+    }
+  }
+}

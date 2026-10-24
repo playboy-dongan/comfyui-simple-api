@@ -1,0 +1,18 @@
+[project]
+name = "comfyui-simple-api"
+version = "0.1.0"
+description = "Simple bilingual ComfyUI nodes for text, vision, image generation and multi-image editing across official APIs and relays."
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = ["requests>=2.31,<3", "Pillow>=10", "numpy>=1.24"]
+
+[project.urls]
+Repository = "https://github.com/playboy-dongan/comfyui-simple-api"
+
+[tool.comfy]
+DisplayName = "Simple API · 简易 API"
+PublisherId = "playboy-dongan"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

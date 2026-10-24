@@ -1,0 +1,153 @@
+{
+  "last_node_id": 3,
+  "last_link_id": 2,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "SAConnection",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        350,
+        245
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "connection",
+          "type": "SA_CONNECTION",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SAConnection"
+      },
+      "widgets_values": [
+        "Custom / 自定义",
+        "https://your-api-host/v1",
+        "key:main",
+        "auto"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "SAImage",
+      "pos": [
+        410,
+        0
+      ],
+      "size": [
+        350,
+        310
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "connection",
+          "type": "SA_CONNECTION",
+          "link": 1
+        },
+        {
+          "name": "options",
+          "type": "SA_OPTIONS",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "response_json",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SAImage"
+      },
+      "widgets_values": [
+        "YOUR_MODEL_ID",
+        "一只坐在窗边的橘猫 / An orange cat by the window",
+        "auto",
+        1,
+        0
+      ]
+    },
+    {
+      "id": 3,
+      "type": "PreviewImage",
+      "pos": [
+        830,
+        0
+      ],
+      "size": [
+        320,
+        300
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "SA_CONNECTION"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8,
+      "offset": [
+        60,
+        60
+      ]
+    }
+  },
+  "version": 0.4
+}

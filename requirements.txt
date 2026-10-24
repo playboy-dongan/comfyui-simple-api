@@ -1,0 +1,4 @@
+requests>=2.31,<3
+Pillow>=10
+numpy>=1.24
+# PyTorch is provided by ComfyUI; do not replace its GPU-specific installation.
