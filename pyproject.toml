@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-simple-api"
-version = "0.1.0"
+version = "0.2.0"
 description = "Simple bilingual ComfyUI nodes for text, vision, image generation and multi-image editing across official APIs and relays."
 requires-python = ">=3.10"
 license = { file = "LICENSE" }

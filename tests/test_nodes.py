@@ -147,7 +147,7 @@ def test_comfyui_import_by_folder_name():
 
     sys.modules[spec.name] = package
     spec.loader.exec_module(package)
-    assert len(package.NODE_CLASS_MAPPINGS) == 10
+    assert len(package.NODE_CLASS_MAPPINGS) == 13
     assert (ROOT / package.WEB_DIRECTORY).is_dir()
 
 

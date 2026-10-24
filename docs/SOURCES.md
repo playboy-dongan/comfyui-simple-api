@@ -15,6 +15,9 @@
 - [SiliconFlow quickstart](https://docs.siliconflow.cn/docs/userguide/quickstart): compatible endpoint.
 - [OpenRouter image generation](https://openrouter.ai/docs/features/multimodal/image-generation): chat multimodal image requests.
 - [Ollama OpenAI compatibility](https://docs.ollama.com/openai): local compatible endpoint.
+- [APIKO Nano Banana 2.1](https://apiko.app/docs/api-manual/image-series/nano-banana-2.1/images): JSON edit requests and async task contract.
+- [APIKO uploads](https://apiko.app/docs/assets): multipart file upload and reference URL requirements.
+- [APIKO tasks](https://apiko.app/docs/tasks): polling states and final image URLs.
 - [ComfyUI built-in OpenAI nodes](https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_api_nodes/nodes_openai.py): community conventions for prompt, reference image and mask ports.
 - [ComfyUI Custom API community package](https://github.com/Einzieg/ComfyUI-custom-api): reference for existing community scope; this package is an independent implementation.
 

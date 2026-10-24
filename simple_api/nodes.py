@@ -1,6 +1,15 @@
+import json
+
 from .adapters import merge, request_images, request_text, select_path, template_body
 from .config import PROTOCOLS, PROVIDERS, APIError, connection, json_object
 from .images import collect_images, decode_image
+from .request_pipeline import RequestPipeline, image_result, select_many
+from .request_profiles import (
+    GENERIC_ASYNC,
+    PRESET_NAMES,
+    custom_profile,
+    preset_profile,
+)
 from .transport import dump_response, redact, request_json
 
 CATEGORY = "Simple API"
@@ -366,6 +375,137 @@ class APIShowText:
         return {"ui": {"text": [text]}, "result": (text,)}
 
 
+class APIRequestProfile:
+    CATEGORY = CATEGORY + "/Advanced"
+    FUNCTION = "build"
+    RETURN_TYPES = ("SA_REQUEST_PROFILE",)
+    RETURN_NAMES = ("profile",)
+    DESCRIPTION = "Configure upload, JSON or multipart submission, task polling and result paths for any compatible provider. / 配置平台的上传、JSON 或表单请求、任务轮询及结果路径，供自动请求节点使用。"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "base_url": string(
+                    tooltip="Provider API base URL, including its version. / 平台基础地址，包含版本号。"
+                ),
+                "settings_json": string(
+                    json.dumps(GENERIC_ASYNC, indent=2),
+                    True,
+                    "Request workflow configuration. See docs/AUTOMATIC_REQUESTS.md. / 请求流程配置，示例见 docs/AUTOMATIC_REQUESTS.md。",
+                ),
+                "timeout": (
+                    "INT",
+                    {
+                        "default": 900,
+                        "min": 1,
+                        "max": 3600,
+                        "tooltip": "Total upload, generation and download deadline. / 上传、生成与下载的总等待时间。",
+                    },
+                ),
+            }
+        }
+
+    def build(self, base_url, settings_json, timeout=900):
+        return (custom_profile(base_url, settings_json, timeout),)
+
+
+class APIAutoRequest:
+    CATEGORY = CATEGORY + "/Advanced"
+    FUNCTION = "execute"
+    RETURN_TYPES = ("STRING", "STRING", "STRING")
+    RETURN_NAMES = ("result", "task_id", "response_json")
+    DESCRIPTION = "Automatically upload references, submit once, poll tasks and fetch the result. Custom profiles support different endpoints, bodies, auth headers and states. / 自动上传参考图、提交请求、轮询任务并取回结果。自定义流程支持不同平台的地址、请求体、认证和状态格式。"
+
+    def __init__(self):
+        self.pipeline = RequestPipeline()
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "preset": (
+                    PRESET_NAMES,
+                    {
+                        "default": "APIKO",
+                        "tooltip": "A connected profile overrides this preset. / 已连接的流程配置优先于预设。",
+                    },
+                ),
+                "api_key": string(
+                    tooltip="Paste your provider key without Bearer, or use env:VARIABLE / key:local_name. Pasted keys are saved in workflows. / 填平台密钥，不加 Bearer；也可用 env:变量名 或 key:本地名称。直接填写会保存到工作流。"
+                ),
+                "model": string(
+                    tooltip="Blank uses the preset model. APIKO defaults to nano-banana-2.1. / 留空跟随预设；APIKO 默认 nano-banana-2.1。"
+                ),
+                "prompt": PROMPT,
+                "size": string(
+                    "auto",
+                    tooltip="auto follows the preset; use a pixel size or aspect ratio required by your provider. / auto 跟随预设，也可填平台要求的尺寸或画幅比例。",
+                ),
+                "resolution": (["auto", "1k", "2k", "4k"], {"default": "auto"}),
+                "run_id": RUN_ID,
+            },
+            "optional": {
+                "image_1": ("IMAGE",),
+                **IMAGE_PORTS,
+                "profile": ("SA_REQUEST_PROFILE",),
+            },
+        }
+
+    @staticmethod
+    def process_result(response, path, timeout):
+        values = select_many(response, path)
+        value = values[0] if len(values) == 1 else values
+        return (
+            value if isinstance(value, str) else json.dumps(value, ensure_ascii=False)
+        )
+
+    def execute(
+        self,
+        preset,
+        api_key,
+        model,
+        prompt,
+        size="auto",
+        resolution="auto",
+        run_id=0,
+        image_1=None,
+        image_2=None,
+        image_3=None,
+        image_4=None,
+        image_set=None,
+        profile=None,
+    ):
+        images = collect_images(image_1, image_2, image_3, image_4, image_set)
+        try:
+            from comfy.utils import ProgressBar
+        except ImportError:
+            progress = None
+        else:
+            progress = ProgressBar(100).update_absolute
+        return self.pipeline.execute(
+            preset_profile(preset, profile),
+            api_key,
+            model,
+            prompt,
+            images,
+            size,
+            resolution,
+            run_id,
+            progress,
+            self.process_result,
+        )
+
+
+class APIAutoImage(APIAutoRequest):
+    CATEGORY = CATEGORY
+    RETURN_TYPES = ("IMAGE", "STRING", "STRING")
+    RETURN_NAMES = ("images", "task_id", "response_json")
+    OUTPUT_IS_LIST = (True, False, False)
+    DESCRIPTION = "Connect images and enter your key and prompt. Upload, synchronous/asynchronous generation and image download are automatic. APIKO defaults to Nano Banana 2.1; custom profiles support other providers. / 接多张图、填密钥和提示词即可出图，自动处理上传、同步或异步请求及下载。APIKO 预设默认 Nano Banana 2.1，也可连接其他平台的流程配置。"
+    process_result = staticmethod(image_result)
+
+
 NODE_CLASS_MAPPINGS = {
     "SAConnection": APIConnection,
     "SAText": APIText,
@@ -377,6 +517,9 @@ NODE_CLASS_MAPPINGS = {
     "SARequest": APIRequest,
     "SAImageDecode": APIImageDecode,
     "SAShowText": APIShowText,
+    "SAAutoImage": APIAutoImage,
+    "SAAutoRequest": APIAutoRequest,
+    "SARequestProfile": APIRequestProfile,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "SAConnection": "API Connection",
@@ -389,4 +532,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "SARequest": "API Custom Request",
     "SAImageDecode": "API Decode Image",
     "SAShowText": "API Show Text",
+    "SAAutoImage": "API Automatic Image",
+    "SAAutoRequest": "API Automatic Request",
+    "SARequestProfile": "API Request Profile",
 }

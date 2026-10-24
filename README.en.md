@@ -4,6 +4,10 @@
 
 Simple ComfyUI nodes for model APIs: connect once, enter a model ID, provide text or images, and use the output. Labels follow ComfyUI's English/Chinese language setting.
 
+**New in v0.2.0: API Automatic Image.** One general runner handles reference uploads, synchronous/asynchronous submission, polling and downloading. Built-in APIKO and OpenAI Images presets are editable request data; other providers use API Request Profile.
+
+For **APIKO Nano Banana 2.1**, connect Load Image nodes → API Automatic Image → Preview/Save Image. Select APIKO, enter the key and editing prompt, and leave the model blank to use `nano-banana-2.1`. No connection node is needed. Import `examples/06-automatic-multi-image-edit.json` to start.
+
 ## Install
 
 Place this folder at `ComfyUI/custom_nodes/comfyui-simple-api`, install `requirements.txt` with **ComfyUI's Python**, and restart ComfyUI. Search for `Simple API`. The package uses ComfyUI's existing PyTorch installation.
@@ -34,6 +38,9 @@ Enter the model on each task node so one connection can serve different models. 
 
 | Node | Purpose |
 | --- | --- |
+| API Automatic Image | Automatic upload, sync/async submission, polling and image download |
+| API Automatic Request | The same workflow with text/JSON output |
+| API Request Profile | Provider-specific upload, auth, request templates, states and result paths |
 | API Connection | Shared credentials, base URL and protocol |
 | API Text | Text → text |
 | API Vision | Text + one or more images → text |
@@ -80,7 +87,9 @@ Templates support `{{prompt}}`, `{{model}}`, `{{images}}` and `{{images_base64}}
 
 Select a result with a JSON Pointer such as `/data/0/url`, or leave it blank for the entire response. Connect image URL/base64 results to API Decode Image. Select the image value explicitly for large base64 responses; the auxiliary response JSON abbreviates large fields. GET sends the body object as query parameters.
 
-This node performs one synchronous JSON request. Dedicated multipart uploads, SSE, WebSockets, video downloads and automatic polling of async tasks are not implemented. You can submit and separately query JSON job APIs.
+API Custom Request performs one synchronous JSON request. You can submit and separately query JSON job APIs with it.
+
+For automatic uploads and polling, use **API Automatic Image / API Automatic Request**. Profiles support multipart or JSON/base64 uploads, inline image bodies, GET/POST polling, a separate result endpoint and JSON Pointer extraction. See [automatic requests](docs/AUTOMATIC_REQUESTS.md). SSE, WebSockets, proprietary signing and multi-stage object-storage uploads require additional adapters.
 
 ## Execution and development
 

@@ -1,5 +1,6 @@
 """Build an installable archive with an explicit allowlist (never include keys)."""
 
+import re
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
@@ -17,7 +18,10 @@ FOLDERS = ["simple_api", "web", "locales", "examples", "docs"]
 
 
 def package():
-    destination = ROOT / "dist" / "comfyui-simple-api-0.1.0.zip"
+    version = re.search(
+        r'^version\s*=\s*"([^"]+)"', (ROOT / "pyproject.toml").read_text(), re.MULTILINE
+    )[1]
+    destination = ROOT / "dist" / f"comfyui-simple-api-{version}.zip"
     destination.parent.mkdir(exist_ok=True)
     paths = [ROOT / name for name in FILES]
     for folder in FOLDERS:

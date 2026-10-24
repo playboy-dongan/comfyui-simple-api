@@ -384,5 +384,166 @@
         "name": "Text"
       }
     }
+  },
+  "SAAutoImage": {
+    "display_name": "API Automatic Image",
+    "description": "Connect images and enter your key and prompt. Upload, synchronous/asynchronous generation and image download are automatic. APIKO defaults to Nano Banana 2.1; custom profiles support other providers.",
+    "inputs": {
+      "preset": {
+        "name": "Preset",
+        "tooltip": "A connected profile overrides this preset."
+      },
+      "api_key": {
+        "name": "Api Key",
+        "tooltip": "Paste your provider key without Bearer, or use env:VARIABLE"
+      },
+      "model": {
+        "name": "Model",
+        "tooltip": "Blank uses the preset model. APIKO defaults to nano-banana-2.1."
+      },
+      "prompt": {
+        "name": "Prompt",
+        "tooltip": "Write your request or connect a text output."
+      },
+      "size": {
+        "name": "Size",
+        "tooltip": "auto follows the preset; use a pixel size or aspect ratio required by your provider."
+      },
+      "resolution": {
+        "name": "Resolution",
+        "tooltip": ""
+      },
+      "run_id": {
+        "name": "Run Id",
+        "tooltip": "Change this value to request again with identical inputs."
+      },
+      "image_1": {
+        "name": "Image 1",
+        "tooltip": ""
+      },
+      "image_2": {
+        "name": "Image 2",
+        "tooltip": ""
+      },
+      "image_3": {
+        "name": "Image 3",
+        "tooltip": ""
+      },
+      "image_4": {
+        "name": "Image 4",
+        "tooltip": ""
+      },
+      "image_set": {
+        "name": "Image Set",
+        "tooltip": ""
+      },
+      "profile": {
+        "name": "Profile",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Images"
+      },
+      "1": {
+        "name": "Task Id"
+      },
+      "2": {
+        "name": "Response Json"
+      }
+    }
+  },
+  "SAAutoRequest": {
+    "display_name": "API Automatic Request",
+    "description": "Automatically upload references, submit once, poll tasks and fetch the result. Custom profiles support different endpoints, bodies, auth headers and states.",
+    "inputs": {
+      "preset": {
+        "name": "Preset",
+        "tooltip": "A connected profile overrides this preset."
+      },
+      "api_key": {
+        "name": "Api Key",
+        "tooltip": "Paste your provider key without Bearer, or use env:VARIABLE"
+      },
+      "model": {
+        "name": "Model",
+        "tooltip": "Blank uses the preset model. APIKO defaults to nano-banana-2.1."
+      },
+      "prompt": {
+        "name": "Prompt",
+        "tooltip": "Write your request or connect a text output."
+      },
+      "size": {
+        "name": "Size",
+        "tooltip": "auto follows the preset; use a pixel size or aspect ratio required by your provider."
+      },
+      "resolution": {
+        "name": "Resolution",
+        "tooltip": ""
+      },
+      "run_id": {
+        "name": "Run Id",
+        "tooltip": "Change this value to request again with identical inputs."
+      },
+      "image_1": {
+        "name": "Image 1",
+        "tooltip": ""
+      },
+      "image_2": {
+        "name": "Image 2",
+        "tooltip": ""
+      },
+      "image_3": {
+        "name": "Image 3",
+        "tooltip": ""
+      },
+      "image_4": {
+        "name": "Image 4",
+        "tooltip": ""
+      },
+      "image_set": {
+        "name": "Image Set",
+        "tooltip": ""
+      },
+      "profile": {
+        "name": "Profile",
+        "tooltip": ""
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Result"
+      },
+      "1": {
+        "name": "Task Id"
+      },
+      "2": {
+        "name": "Response Json"
+      }
+    }
+  },
+  "SARequestProfile": {
+    "display_name": "API Request Profile",
+    "description": "Configure upload, JSON or multipart submission, task polling and result paths for any compatible provider.",
+    "inputs": {
+      "base_url": {
+        "name": "Base Url",
+        "tooltip": "Provider API base URL, including its version."
+      },
+      "settings_json": {
+        "name": "Settings Json",
+        "tooltip": "Request workflow configuration. See docs/AUTOMATIC_REQUESTS.md."
+      },
+      "timeout": {
+        "name": "Timeout",
+        "tooltip": "Total upload, generation and download deadline."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Profile"
+      }
+    }
   }
 }

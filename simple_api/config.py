@@ -8,6 +8,10 @@ from urllib.parse import urlsplit
 class APIError(ValueError):
     """A short, actionable error that ComfyUI can show directly."""
 
+    def __init__(self, message, status_code=None):
+        super().__init__(message)
+        self.status_code = status_code
+
 
 # Presets are conveniences, not a model allowlist. Every URL is overridable.
 PROVIDERS = {

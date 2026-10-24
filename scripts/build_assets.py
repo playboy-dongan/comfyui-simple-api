@@ -19,6 +19,9 @@ ZH_NODES = {
     "SARequest": "API 通用请求",
     "SAImageDecode": "API 解码图像",
     "SAShowText": "API 显示文本",
+    "SAAutoImage": "API 自动图像",
+    "SAAutoRequest": "API 自动请求",
+    "SARequestProfile": "API 流程配置",
 }
 ZH_INPUTS = {
     "provider": "平台",
@@ -50,6 +53,10 @@ ZH_INPUTS = {
     "result_path": "结果路径",
     "text": "文本",
     "image_data": "图像地址或 base64",
+    "preset": "平台预设",
+    "resolution": "分辨率",
+    "profile": "流程配置",
+    "settings_json": "流程 JSON",
 }
 ZH_OUTPUTS = {
     **ZH_INPUTS,
@@ -57,6 +64,7 @@ ZH_OUTPUTS = {
     "image": "图像",
     "response_json": "响应 JSON",
     "result": "结果",
+    "task_id": "任务编号",
 }
 
 
@@ -302,6 +310,33 @@ def examples():
     save(
         ROOT / "examples/05-gemini-image.json",
         workflow(nodes, [(1, 0, 2, "connection"), (2, 0, 3, "images")]),
+    )
+    nodes = [
+        node(1, "LoadImage", [0, 0]),
+        node(2, "LoadImage", [0, 350]),
+        node(
+            3,
+            "SAAutoImage",
+            [420, 80],
+            {
+                "preset": "APIKO",
+                "api_key": "key:apiko",
+                "model": "",
+                "prompt": "让图 1 的人物穿上图 2 的衣服，保持人物脸部不变。 / Dress the person from image 1 in the clothes from image 2, preserving their face.",
+            },
+        ),
+        node(4, "PreviewImage", [850, 80]),
+    ]
+    save(
+        ROOT / "examples/06-automatic-multi-image-edit.json",
+        workflow(
+            nodes,
+            [
+                (1, 0, 3, "image_1"),
+                (2, 0, 3, "image_2"),
+                (3, 0, 4, "images"),
+            ],
+        ),
     )
 
 

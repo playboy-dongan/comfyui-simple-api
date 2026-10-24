@@ -147,7 +147,10 @@ def request_json(
                     }
                     hint = hints.get(response.status_code, "请求失败 / Request failed")
                     detail = dump_response(result, secrets)[:1500]
-                    raise APIError(f"HTTP {response.status_code}: {hint}\n{detail}")
+                    raise APIError(
+                        f"HTTP {response.status_code}: {hint}\n{detail}",
+                        status_code=response.status_code,
+                    )
                 if isinstance(result, dict) and result.get("error"):
                     raise APIError(dump_response(result["error"], secrets)[:1500])
                 return result, secrets

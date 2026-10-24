@@ -4,6 +4,10 @@
 
 在 ComfyUI 中调用模型 API。配置连接、填写模型、输入内容、连接输出。界面随 ComfyUI 切换中文或英文。
 
+**v0.2.0 新增通用“API 自动图像”**：自动上传图片、提交同步或异步请求、轮询任务并下载结果。内置 APIKO 和 OpenAI Images 预设；其他平台连接独立“API 流程配置”，按其文档设置请求格式即可。
+
+**APIKO / Nano Banana 2.1 最简用法：** 多个“加载图像” → **API 自动图像** → 预览图像 / 保存图像。平台选 `APIKO`，填密钥和编辑要求，模型留空自动使用 `nano-banana-2.1`，其余选项保持默认即可；不需要 API 连接节点。可导入 `examples/06-automatic-multi-image-edit.json`。
+
 ## 安装
 
 1. 将本项目文件夹放入 `ComfyUI/custom_nodes/comfyui-simple-api`。
@@ -49,6 +53,9 @@ Windows 便携版，在便携版根目录执行：
 
 | 节点 | 用途 |
 | --- | --- |
+| API 自动图像 | 通用自动上传、同步/异步图像请求、任务轮询、图像下载 |
+| API 自动请求 | 使用同一流程返回文本或 JSON 结果 |
+| API 流程配置 | 为其他平台设置上传方式、请求体、认证、任务状态、结果路径 |
 | API 连接 | 共用地址、密钥和接口格式 |
 | API 文本 | 文本 → 文本 |
 | API 看图问答 | 一张或多张图 + 文本 → 文本 |
@@ -107,7 +114,9 @@ OpenRouter 预设的图像模式使用 chat multimodal 接口；其他兼容中�
 
 结果路径采用 JSON Pointer，例如 `/data/0/url` 或 `/choices/0/message/content`；留空输出全部响应。返回图片地址或 base64 时，接“API 解码图像”。需要传递大段 base64 时使用结果路径，辅助的响应 JSON 会缩略大字段。GET 将 JSON 对象作为查询参数。
 
-通用节点发送一次同步 JSON 请求。专用文件上传、SSE、WebSocket、视频下载及自动轮询异步任务暂未实现；可用通用节点分别提交和查询 JSON 任务接口，但不会自动等待完成。
+“API 通用请求”节点发送一次同步 JSON 请求，也可分别提交和查询 JSON 任务接口。
+
+需要自动上传或轮询时，改用 **API 自动图像 / API 自动请求**。流程支持 multipart 上传、JSON base64 上传、直接内联图片、自定义 GET/POST 轮询、独立结果获取接口及 JSON Pointer 结果路径。详细配置见 [自动请求说明](docs/AUTOMATIC_REQUESTS.md)。SSE、WebSocket、平台专用签名或多阶段对象存储上传仍需要对应适配。
 
 ## 执行与排错
 
